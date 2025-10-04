@@ -3,7 +3,6 @@ import { useState } from "react";
 import { FiSearch, FiPaperclip, FiCode, FiSend, FiMoreVertical } from "react-icons/fi";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const conversations = [
   {
@@ -48,6 +47,12 @@ console.log(greeting);`,
 
 export default function ContributorPage() {
   const [selectedConversation, setSelectedConversation] = useState(conversations[0]);
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied!');
+    });
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -110,9 +115,7 @@ export default function ContributorPage() {
                 <div className="w-full max-w-lg bg-gray-800 text-white rounded-lg p-4">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm">{msg.language}</span>
-                    <CopyToClipboard text={msg.content} onCopy={() => alert('Copied!')}>
-                      <button className="text-sm hover:underline">Copy Code</button>
-                    </CopyToClipboard>
+                    <button className="text-sm hover:underline" onClick={() => handleCopy(msg.content)}>Copy Code</button>
                   </div>
                   <SyntaxHighlighter language={msg.language} style={atomDark}>
                     {msg.content}
