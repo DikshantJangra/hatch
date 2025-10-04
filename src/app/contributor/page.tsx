@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import { FiSearch, FiPaperclip, FiCode, FiSend, FiMoreVertical } from "react-icons/fi";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const conversations = [
   {
@@ -117,9 +115,11 @@ export default function ContributorPage() {
                     <span className="text-sm">{msg.language}</span>
                     <button className="text-sm hover:underline" onClick={() => handleCopy(msg.content)}>Copy Code</button>
                   </div>
-                  <SyntaxHighlighter language={msg.language} style={atomDark}>
-                    {msg.content}
-                  </SyntaxHighlighter>
+                  <pre>
+                    <code>
+                      {msg.content}
+                    </code>
+                  </pre>
                 </div>
               ) : (
                 <div className={`p-3 rounded-lg max-w-lg ${
