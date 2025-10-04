@@ -3,6 +3,7 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import Loading from '@/components/ui/Loading'
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const supabase = createClientComponentClient()
@@ -42,7 +43,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
   }, [loading, user, router])
 
   if (loading) {
-    return <div>Loading...</div> // Or a spinner component
+    return <Loading />
   }
 
   if (user) {

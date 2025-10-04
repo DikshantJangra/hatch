@@ -1,52 +1,49 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FiGithub, FiLinkedin, FiTwitter, FiStar, FiEdit, FiPlus } from "react-icons/fi";
-
-const mentorData = {
-  name: "Jane Doe",
-  avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704e",
-  tagline: "Senior Software Engineer @ DCODE | Open Source Contributor",
-  social: {
-    github: "#",
-    linkedin: "#",
-    twitter: "#",
-  },
-  about: "I am a passionate software engineer with over 10 years of experience in building scalable web applications. I love open source and enjoy helping others grow in their careers.",
-  expertise: ["React", "Node.js", "Docker", "Kubernetes", "Python", "Project Management"],
-  mentorshipStyle: [
-    "I enjoy live code pairing and debugging sessions.",
-    "Best for high-level architectural questions.",
-    "Happy to provide career advice and resume feedback.",
-  ],
-  stats: {
-    sessionsCompleted: 58,
-    averageRating: 4.9,
-    avgResponseTime: "~5 minutes",
-  },
-  feedback: [
-    {
-      rating: 5,
-      comment: "Jane was incredibly helpful in debugging a complex issue I was facing. Highly recommended!",
-      date: "2025-09-15",
-    },
-    {
-      rating: 5,
-      comment: "Excellent mentor! Provided great career advice.",
-      date: "2025-08-22",
-    },
-  ],
-};
-
-const pendingRequests = [
-  {
-    name: "Alex Smith",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704f",
-    message: "Hi Jane, I'd love to get your advice on my project architecture.",
-  },
-];
+import Loading from '@/components/ui/Loading';
 
 export default function MentorProfilePage() {
   const [isAvailable, setIsAvailable] = useState(true);
+  const [mentorData, setMentorData] = useState<any>(null);
+  const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setMentorData({
+          name: user.user_metadata.full_name,
+          avatar: user.user_metadata.avatar_url,
+          tagline: "Software Engineer", // Placeholder
+          social: {
+            github: `https://github.com/${user.user_metadata.user_name}`,
+            linkedin: "#", // Placeholder
+            twitter: "#", // Placeholder
+          },
+          about: user.user_metadata.bio || "No bio available.",
+          expertise: ["React", "Node.js", "Docker"], // Placeholder
+          mentorshipStyle: [
+            "I enjoy live code pairing and debugging sessions.",
+            "Best for high-level architectural questions.",
+          ], // Placeholder
+          stats: {
+            sessionsCompleted: 0,
+            averageRating: 0,
+            avgResponseTime: "N/A",
+          }, // Placeholder
+          feedback: [], // Placeholder
+        });
+      }
+    };
+
+    fetchUserData();
+  }, [supabase]);
+
+  if (!mentorData) {
+    return <Loading />;
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen p-8">
@@ -181,3 +178,5 @@ export default function MentorProfilePage() {
     </div>
   );
 }
+
+const pendingRequests = []; // Placeholder
