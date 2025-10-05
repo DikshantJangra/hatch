@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { FaUsers, FaStar, FaClock, FaChevronRight } from 'react-icons/fa';
 
 const mockMentor = {
@@ -17,7 +20,7 @@ const communityFeed = [
   {
     type: 'Resource',
     title: 'Deep Dive into Large Language Models',
-    summary: 'I've published a comprehensive guide on the architecture and training processes of modern LLMs. It covers everything from the Transformer architecture to fine-tuning techniques. Hope you find it useful!',
+    summary: 'I\'ve published a comprehensive guide on the architecture and training processes of modern LLMs. It covers everything from the Transformer architecture to fine-tuning techniques. Hope you find it useful!',
     date: 'October 3, 2025',
     tags: ['#LLM', '#AI', '#DeepLearning'],
     link: '#',
@@ -33,7 +36,7 @@ const communityFeed = [
   {
     type: 'Q&A',
     title: 'Q&A: How to get started with Reinforcement Learning?',
-    summary: 'A common question I get is about breaking into RL. I've compiled a list of my favorite resources, from foundational papers to hands-on projects, to help you start your journey.',
+    summary: 'A common question I get is about breaking into RL. I\'ve compiled a list of my favorite resources, from foundational papers to hands-on projects, to help you start your journey.',
     date: 'September 28, 2025',
     tags: ['#RL', '#Beginners', '#Q&A'],
     link: '#',
@@ -68,13 +71,34 @@ const PostTypeBadge = ({ type }: { type: string }) => {
 };
 
 const MentorCommunityHub = () => {
+  const [isCreatingMeeting, setIsCreatingMeeting] = useState(false);
+
+  const handleRequestSession = async () => {
+    setIsCreatingMeeting(true);
+    try {
+      const response = await fetch('/api/create-meeting', { method: 'POST' });
+      if (!response.ok) {
+        throw new Error('Failed to create meeting');
+      }
+      const data = await response.json();
+      if (data.meetingUrl) {
+        window.open(data.meetingUrl, '_blank');
+      }
+    } catch (error) {
+      console.error(error);
+      // Optionally, show an error message to the user
+    } finally {
+      setIsCreatingMeeting(false);
+    }
+  };
+
   return (
     <div className="bg-[#F4F7F9] min-h-screen p-4 sm:p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Global Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-800">
-            {mockMentor.name}'s Community Hub
+            {mockMentor.name}\'s Community Hub
           </h1>
           {/* Navigation Tabs */}
           <div className="mt-4 border-b border-gray-200">
@@ -150,9 +174,13 @@ const MentorCommunityHub = () => {
             {/* Direct CTA Card */}
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h3 className="text-lg font-bold text-gray-800">Need Direct Help?</h3>
-              <p className="mt-2 text-sm text-gray-600">Can't find what you're looking for in the feed? Request a private 1-on-1 session to get personalized guidance.</p>
-              <button className="w-full mt-4 bg-[#28A745] text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-colors">
-                Request 1-on-1 Session
+              <p className="mt-2 text-sm text-gray-600">Can\'t find what you\'re looking for in the feed? Request a private 1-on-1 session to get personalized guidance.</p>
+              <button 
+                onClick={handleRequestSession}
+                disabled={isCreatingMeeting}
+                className="w-full mt-4 bg-[#28A745] text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              >
+                {isCreatingMeeting ? 'Creating Session...' : 'Request 1-on-1 Session'}
               </button>
             </div>
           </div>

@@ -12,7 +12,7 @@ interface MentorCardProps {
 const statusClasses = {
   Available: 'bg-green-500',
   Busy: 'bg-amber-500',
-  Offline: 'bg-gray-00',
+  Offline: 'bg-gray-400',
 };
 
 const MentorCard: React.FC<MentorCardProps> = ({ mentor }) => {
@@ -27,7 +27,7 @@ const MentorCard: React.FC<MentorCardProps> = ({ mentor }) => {
           className="rounded-full object-cover"
         />
         <span
-          className={`absolute bottom-1 right-1 block h-4 w-4 rounded-full border-2 border-white dark:border-gray-800 ${statusClasses[mentor.status]}`}
+          className={`absolute bottom-1 right-1 block h-4 w-4 rounded-full border-2 border-white ${statusClasses[mentor.status]}`}
           aria-label={mentor.status}
         />
       </div>
@@ -37,7 +37,7 @@ const MentorCard: React.FC<MentorCardProps> = ({ mentor }) => {
       </div>
       <div className="mt-4 flex flex-wrap justify-center gap-2">
         {mentor.expertise.slice(0, 4).map((skill) => (
-          <span key={skill} className="bg-white text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded-full border">
+          <span key={skill} className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
             {skill}
           </span>
         ))}
@@ -50,7 +50,7 @@ const MentorCard: React.FC<MentorCardProps> = ({ mentor }) => {
         <span>{mentor.sessionsCompleted} sessions</span>
       </div>
       <Link href={`/contributor/mentor-profile/${mentor.id}`} passHref className="mt-auto">
-        <button className="w-full mt-4 bg-white text-gray-700 py-2 rounded-lg hover:bg-gray-100 transition-colors border">
+        <button className="w-full mt-4 bg-[#007BFF] text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
           View Profile
         </button>
       </Link>
