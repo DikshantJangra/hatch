@@ -135,6 +135,7 @@ export default function MentorDashboardPage() {
     <div className="min-h-screen bg-[#F9FAFB]">
       <MentorNavbar />
       <main className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-[#111827] mb-6">Dashboard</h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main content area (2 columns on desktop) */}
           <div className="lg:col-span-2 space-y-6">

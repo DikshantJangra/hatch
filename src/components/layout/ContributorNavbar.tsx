@@ -11,7 +11,7 @@ import {
   FiLogOut,
   FiX,
 } from "react-icons/fi";
-import { FaFeather } from "react-icons/fa"; // Using as a placeholder for the logo icon
+import { FaFeather } from "react-icons/fa";
 import { useUser } from "@/hooks/useUser";
 import Loading from "@/components/ui/Loading";
 
@@ -21,7 +21,6 @@ const ContributorNavbar = () => {
   const pathname = usePathname();
   const { user, loading } = useUser();
 
-  // Close menus when path changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsProfileMenuOpen(false);
