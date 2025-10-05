@@ -1,182 +1,183 @@
-"use client";
-import { useState, useEffect } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { FiGithub, FiLinkedin, FiTwitter, FiStar, FiEdit, FiPlus } from "react-icons/fi";
-import Loading from '@/components/ui/Loading';
+// src/app/mentor/page.tsx
+'use client'; // This is a Client Component
 
-export default function MentorProfilePage() {
+import React, { useState } from 'react';
+import MentorNavbar from '@/components/layout/MentorNavbar';
+import WelcomeAvailabilityWidget from '@/components/mentor/WelcomeAvailabilityWidget';
+import StatisticsSummaryWidget from '@/components/mentor/StatisticsSummaryWidget';
+import MentorshipRequestsWidget from '@/components/mentor/MentorshipRequestsWidget';
+import ActiveSessionsWidget from '@/components/mentor/ActiveSessionsWidget';
+import ScheduledGroupSessionsWidget from '@/components/mentor/ScheduledGroupSessionsWidget';
+import RecentFeedbackWidget from '@/components/mentor/RecentFeedbackWidget';
+
+// Mock Data (will eventually come from API)
+const MOCK_MENTOR_NAME = "Dr. Alex Smith";
+
+const MOCK_MENTORSHIP_REQUESTS = [
+  {
+    id: 'req1',
+    studentName: 'Alice Johnson',
+    messageSnippet: 'Looking for guidance on React hooks...',
+    skillTags: ['React', 'Frontend', 'JavaScript'],
+    avatarUrl: 'https://i.pravatar.cc/150?img=1',
+  },
+  {
+    id: 'req2',
+    studentName: 'Bob Williams',
+    messageSnippet: 'Need help with Python backend development.',
+    skillTags: ['Python', 'Backend', 'Django'],
+    avatarUrl: 'https://i.pravatar.cc/150?img=2',
+  },
+];
+
+const MOCK_ACTIVE_SESSIONS = [
+  {
+    id: 'sess1',
+    studentName: 'Charlie Brown',
+    lastMessageSnippet: 'Thanks for the advice on algorithms!',
+    avatarUrl: 'https://i.pravatar.cc/150?img=3',
+    hasUnreadMessages: true,
+  },
+  {
+    id: 'sess2',
+    studentName: 'Diana Prince',
+    lastMessageSnippet: 'I\'ll review the PR by tomorrow.',
+    avatarUrl: 'https://i.pravatar.cc/150?img=4',
+    hasUnreadMessages: false,
+  },
+];
+
+const MOCK_SCHEDULED_SESSIONS = [
+  {
+    id: 'group1',
+    title: 'Advanced React Patterns',
+    dateTime: 'Oct 26, 2025 - 10:00 AM',
+    attendees: 12,
+  },
+  {
+    id: 'group2',
+    title: 'Intro to Cloud Computing',
+    dateTime: 'Nov 01, 2025 - 02:00 PM',
+    attendees: 8,
+  },
+];
+
+const MOCK_RECENT_FEEDBACK = [
+  {
+    id: 'fb1',
+    rating: 5,
+    comment: 'Dr. Smith was incredibly helpful and clear!',
+  },
+  {
+    id: 'fb2',
+    rating: 4,
+    comment: 'Good session, learned a lot about debugging.',
+  },
+];
+
+
+export default function MentorDashboardPage() {
   const [isAvailable, setIsAvailable] = useState(true);
-  const [mentorData, setMentorData] = useState<any>(null);
-  const supabase = createClientComponentClient();
+  const [mentorshipRequests, setMentorshipRequests] = useState(MOCK_MENTORSHIP_REQUESTS);
+  const [activeSessions, setActiveSessions] = useState(MOCK_ACTIVE_SESSIONS);
+  const [scheduledSessions, setScheduledSessions] = useState(MOCK_SCHEDULED_SESSIONS);
+  const [recentFeedback, setRecentFeedback] = useState(MOCK_RECENT_FEEDBACK);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setMentorData({
-          name: user.user_metadata.full_name,
-          avatar: user.user_metadata.avatar_url,
-          tagline: "Software Engineer", // Placeholder
-          social: {
-            github: `https://github.com/${user.user_metadata.user_name}`,
-            linkedin: "#", // Placeholder
-            twitter: "#", // Placeholder
-          },
-          about: user.user_metadata.bio || "No bio available.",
-          expertise: ["React", "Node.js", "Docker"], // Placeholder
-          mentorshipStyle: [
-            "I enjoy live code pairing and debugging sessions.",
-            "Best for high-level architectural questions.",
-          ], // Placeholder
-          stats: {
-            sessionsCompleted: 0,
-            averageRating: 0,
-            avgResponseTime: "N/A",
-          }, // Placeholder
-          feedback: [], // Placeholder
-        });
-      }
-    };
+  const handleToggleAvailability = () => {
+    setIsAvailable((prev) => !prev);
+    // In a real app, this would trigger an API call to update mentor's status
+    console.log("Toggling availability to:", !isAvailable);
+  };
 
-    fetchUserData();
-  }, [supabase]);
+  const handleAcceptRequest = (id: string) => {
+    const acceptedRequest = mentorshipRequests.find(req => req.id === id);
+    if (acceptedRequest) {
+      setMentorshipRequests(prev => prev.filter(req => req.id !== id));
+      // Simulate moving to active sessions and navigating to chat
+      setActiveSessions(prev => [
+        ...prev,
+        {
+          id: acceptedRequest.id, // Reusing ID for simplicity
+          studentName: acceptedRequest.studentName,
+          lastMessageSnippet: 'Session started!',
+          avatarUrl: acceptedRequest.avatarUrl,
+          hasUnreadMessages: true,
+        },
+      ]);
+      console.log(`Accepted request ${id}. Navigating to chat with ${acceptedRequest.studentName}`);
+      // In a real app, navigate to chat page: router.push(`/mentor/chat/${id}`);
+    }
+  };
 
-  if (!mentorData) {
-    return <Loading />;
-  }
+  const handleDeclineRequest = (id: string) => {
+    setMentorshipRequests(prev => prev.filter(req => req.id !== id));
+    console.log(`Declined request ${id}`);
+    // In a real app, this would trigger an API call to decline the request
+  };
+
+  const handleContinueChat = (id: string) => {
+    console.log(`Continuing chat with session ${id}`);
+    // In a real app, navigate to chat page: router.push(`/mentor/chat/${id}`);
+  };
+
+  const handleScheduleNewGroupSession = () => {
+    console.log("Opening modal to schedule new group session.");
+    // In a real app, open a modal or navigate to a scheduling page
+  };
+
+  const handleViewAllFeedback = () => {
+    console.log("Navigating to detailed feedback page.");
+    // In a real app, navigate to feedback page: router.push('/mentor/feedback');
+  };
+
 
   return (
-    <div className="bg-gray-50 min-h-screen p-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column */}
-        <div className="lg:col-span-2 bg-white p-8 rounded-lg shadow">
-          {/* Profile Header */}
-          <div className="flex items-center mb-6">
-            <img src={mentorData.avatar} alt={mentorData.name} className="h-24 w-24 rounded-full mr-6" />
-            <div>
-              <h1 className="text-3xl font-bold">{mentorData.name}</h1>
-              <p className="text-gray-600">{mentorData.tagline}</p>
-              <div className="flex space-x-4 mt-2">
-                <a href={mentorData.social.github}><FiGithub className="text-gray-500 hover:text-gray-800" /></a>
-                <a href={mentorData.social.linkedin}><FiLinkedin className="text-gray-500 hover:text-gray-800" /></a>
-                <a href={mentorData.social.twitter}><FiTwitter className="text-gray-500 hover:text-gray-800" /></a>
-              </div>
-            </div>
-            <button className="ml-auto bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center">
-              <FiEdit className="mr-2" /> Edit Profile
-            </button>
+    <div className="min-h-screen bg-[#F9FAFB]">
+      <MentorNavbar />
+      <main className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-[#111827] mb-6">Dashboard</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main content area (2 columns on desktop) */}
+          <div className="lg:col-span-2 space-y-6">
+            <WelcomeAvailabilityWidget
+              mentorName={MOCK_MENTOR_NAME}
+              isAvailable={isAvailable}
+              onToggleAvailability={handleToggleAvailability}
+            />
+
+            <MentorshipRequestsWidget
+              requests={mentorshipRequests}
+              onAccept={handleAcceptRequest}
+              onDecline={handleDeclineRequest}
+            />
+
+            <ActiveSessionsWidget
+              sessions={activeSessions}
+              onContinueChat={handleContinueChat}
+            />
           </div>
 
-          {/* About Section */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-2">About Me</h2>
-            <p className="text-gray-700 leading-relaxed">{mentorData.about}</p>
-          </div>
+          {/* Sidebar (1 column on desktop) */}
+          <div className="lg:col-span-1 space-y-6">
+            <StatisticsSummaryWidget
+              pendingRequests={mentorshipRequests.length}
+              sessionsThisWeek={MOCK_ACTIVE_SESSIONS.length} // Using mock for now
+              avgRating={4.9} // Using mock for now
+              totalMentees={58} // Using mock for now
+            />
 
-          {/* Expertise Tags */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-2">Areas of Expertise</h2>
-            <div className="flex flex-wrap gap-2">
-              {mentorData.expertise.map(skill => (
-                <span key={skill} className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
+            <ScheduledGroupSessionsWidget
+              sessions={scheduledSessions}
+              onScheduleNew={handleScheduleNewGroupSession}
+            />
 
-          {/* Mentorship Style */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-2">My Mentorship Style</h2>
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
-              {mentorData.mentorshipStyle.map(style => <li key={style}>{style}</li>)}
-            </ul>
-          </div>
-
-          {/* Feedback & Ratings */}
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Feedback from Mentees</h2>
-            <div className="space-y-4">
-              {mentorData.feedback.map((fb, index) => (
-                <div key={index} className="border-l-4 border-blue-500 pl-4">
-                  <div className="flex items-center mb-1">
-                    {[...Array(5)].map((_, i) => <FiStar key={i} className={`${i < fb.rating ? 'text-yellow-400' : 'text-gray-300'}`} />)}
-                  </div>
-                  <p className="text-gray-700 italic">"{fb.comment}"</p>
-                  <p className="text-right text-sm text-gray-500 mt-1">- {fb.date}</p>
-                </div>
-              ))}
-            </div>
+            <RecentFeedbackWidget
+              feedback={recentFeedback}
+              onViewAll={handleViewAllFeedback}
+            />
           </div>
         </div>
-
-        {/* Right Column */}
-        <div className="space-y-8">
-          {/* Status & Availability Card */}
-          <div className="bg-white p-6 rounded-lg shadow">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold">Availability Status</h3>
-              <div className="flex items-center">
-                <span className={`mr-2 h-3 w-3 rounded-full ${isAvailable ? 'bg-green-500' : 'bg-gray-400'}`}></span>
-                <span className={`text-sm font-medium ${isAvailable ? 'text-green-600' : 'text-gray-600'}`}>
-                  {isAvailable ? 'Available' : 'Offline'}
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center justify-between bg-gray-100 p-2 rounded-lg mb-4">
-              <span>Set your status</span>
-              <label className="inline-flex relative items-center cursor-pointer">
-                <input type="checkbox" checked={isAvailable} onChange={() => setIsAvailable(!isAvailable)} className="sr-only peer" />
-                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              </label>
-            </div>
-            <ul className="text-sm text-gray-600 space-y-2">
-              <li>Sessions Completed: {mentorData.stats.sessionsCompleted}</li>
-              <li>Average Rating: {mentorData.stats.averageRating}/5 ★</li>
-              <li>Avg. Response Time: {mentorData.stats.avgResponseTime}</li>
-            </ul>
-          </div>
-
-          {/* Pending Requests */}
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="font-semibold mb-4">Mentorship Requests</h3>
-            {pendingRequests.length > 0 ? (
-              <div className="space-y-4">
-                {pendingRequests.map((req, index) => (
-                  <div key={index}>
-                    <div className="flex items-center mb-2">
-                      <img src={req.avatar} alt={req.name} className="h-10 w-10 rounded-full mr-3" />
-                      <div>
-                        <p className="font-semibold">{req.name}</p>
-                        <p className="text-sm text-gray-600 truncate">{req.message}</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-end space-x-2">
-                      <button className="px-3 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">Decline</button>
-                      <button className="px-3 py-1 bg-green-500 text-white rounded-lg text-sm">Accept</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-gray-500">No pending requests.</p>
-            )}
-          </div>
-
-          {/* Scheduled Group Sessions */}
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="font-semibold mb-4">My Group Sessions</h3>
-            <div className="text-center text-gray-500 mb-4">
-              <p>No upcoming sessions.</p>
-            </div>
-            <button className="w-full bg-blue-100 text-blue-800 px-4 py-2 rounded-lg flex items-center justify-center">
-              <FiPlus className="mr-2" /> Schedule New Session
-            </button>
-          </div>
-        </div>
-      </div>
+      </main>
     </div>
   );
 }
-
-const pendingRequests = []; // Placeholder

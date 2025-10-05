@@ -1,8 +1,11 @@
-export default function Loading() {
+import React from 'react';
+
+const Loading = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <img src="https://media.tenor.com/UncF_u_NCSkAAAAC/hatching-chick.gif" alt="Hatching GIF" className="w-36 h-36" />
-      <p className="mt-4 text-2xl font-bold text-gray-700">Hatching...</p>
+    <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
     </div>
   );
-}
+};
+
+export default Loading;
