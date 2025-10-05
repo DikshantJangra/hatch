@@ -77,7 +77,7 @@ export default function HatchLandingPage() {
                             Find Your Role, <span className="text-teal-600">Effortlessly</span>
                         </h2>
                         <p className="mt-6 max-w-xl mx-auto lg:mx-0 text-lg text-gray-600 leading-8">
-                            Forget filling out long profiles. Our Smart Role Assignment analyzes your public GitHub activity to instantly identify where you'll shine—as a **Verified Mentor** or a **Newcomer** ready to contribute.
+                            Forget filling out long profiles. Our Smart Role Assignment analyzes your public GitHub activity to instantly identify where you&apos;ll shine—as a **Verified Mentor** or a **Newcomer** ready to contribute.
                         </p>
                         <div className="mt-8 flex gap-4 justify-center lg:justify-start">
                             <span className="inline-flex items-center rounded-full bg-teal-100/50 px-4 py-1.5 text-sm font-medium text-teal-700 ring-1 ring-inset ring-teal-500/30">Mentor Discovery</span>
@@ -285,10 +285,10 @@ export default function HatchLandingPage() {
                             </div>
                             <div className="py-4 space-y-4 text-sm">
                                 <div className="flex justify-end">
-                                    <p className="bg-teal-600 text-white p-3 rounded-lg max-w-[80%]">Hey Sarah, I'm stuck on this async issue in my project.</p>
+                                    <p className="bg-teal-600 text-white p-3 rounded-lg max-w-[80%]">Hey Sarah, I&apos;m stuck on this async issue in my project.</p>
                                 </div>
                                 <div className="flex justify-start">
-                                    <p className="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-[80%]">Of course! Send over the code snippet when you can.</p>
+                                                                        <p className="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-[80%]">Of course! Send over the code snippet when you can.</p>
                                 </div>
                             </div>
                             <div className="flex items-center pt-3 border-t border-gray-300">
@@ -496,8 +496,8 @@ export default function HatchLandingPage() {
                             <span className="text-8xl font-black absolute top-[-30px] left-[-10px] text-gray-200 z-0">02</span>
                             <h3 className="text-3xl font-bold text-gray-900 mb-3 relative z-10">Micro-Match (15min)</h3>
                             <p className="text-gray-600 text-base mb-4">
-                                We match Newcomers with **First-Time Guide** Mentors. Submit one specific question for a **15-minute focused session**. No long-term commitments required.
-                            </p>
+                                    We match Newcomers with **First-Time Guide** Mentors. Submit one specific question for a **15-minute focused session**. No long-term commitments required.
+                                </p>
                             <p className="text-teal-600 font-semibold">Focus: High-Quality, Quick Resolution.</p>
                         </div>
                         
