@@ -5,7 +5,7 @@ import Image from 'next/image';
 import GithubButton from '@/components/auth/GithubButton';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
-export default function SignupPage() {
+export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,7 +32,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#0A0A0A] text-white" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"#171717\" fill-opacity=\"0.4\" fill-rule=\"evenodd\"%3E%3Cpath d=\"M0 40L40 0H20L0 20M40 40V20L20 40\"/%3E%3C/g%3E%3C/svg%3E')" }}>
+    <div className="flex min-h-screen bg-[#0A0A0A] text-white" style={{ backgroundImage: `url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="#171717" fill-opacity="0.4" fill-rule="evenodd"%3E%3Cpath d="M0 40L40 0H20L0 20M40 40V20L20 40"/%3E%3C/g%3E%3C/svg%3E')` }}>
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12">
         <div className="w-full max-w-md">
           <div className="flex items-center mb-8">

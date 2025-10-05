@@ -200,8 +200,8 @@ const MentorPublicProfilePage = ({ params }: MentorProfilePageProps) => {
               </h3>
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-gray-700 italic">
-                  "{latestReview.snippet}"
-                </p>
+                    {latestReview.snippet}
+                  </p>
                 <p className="text-right text-gray-600 mt-2 font-medium">
                   - {latestReview.student}
                 </p>

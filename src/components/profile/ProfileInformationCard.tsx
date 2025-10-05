@@ -6,30 +6,27 @@ import Loading from '@/components/ui/Loading';
 
 export default function ProfileInformationCard() {
   const { user, loading } = useUser();
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingGoal, setIsEditingGoal] = useState(false);
+  const [isEditingInterests, setIsEditingInterests] = useState(false);
   const [name, setName] = useState('');
   const [goal, setGoal] = useState('');
-  const [joinDate, setJoinDate] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [githubUrl, setGithubUrl] = useState('');
   const [interests, setInterests] = useState<string[]>([]);
+  const [newInterest, setNewInterest] = useState('');
+
 
   useEffect(() => {
     if (user) {
       setName(user.user_metadata?.user_name || user.user_metadata?.full_name || 'No Name');
       setAvatarUrl(user.user_metadata?.avatar_url || '');
       setGithubUrl(user.user_metadata?.html_url || `https://github.com/${user.user_metadata?.user_name}`);
-      setJoinDate(new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }));
       // Assuming goal and interests might be stored in user_metadata or a separate profile table
       // For now, keeping them as static or empty if not available
       setGoal(user.user_metadata?.goal || '');
       setInterests(user.user_metadata?.interests || ['React', 'Node.js', 'UI/UX', 'TypeScript']);
     }
   }, [user]);
-
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-  };
 
   if (loading) {
     return <Loading />;
@@ -51,7 +48,7 @@ export default function ProfileInformationCard() {
 
       {/* User Details */}
       <div className="text-center mb-6">
-        {isEditing ? (
+        {isEditingGoal ? (
           <input
             type="text"
             value={name}
@@ -61,19 +58,18 @@ export default function ProfileInformationCard() {
         ) : (
           <h2 className="text-2xl font-bold">{name}</h2>
         )}
-        <p className="text-sm text-gray-500">Joined Hatch! {joinDate}</p>
-        <button
-          onClick={handleEditToggle}
-          className="mt-2 text-sm text-blue-600 hover:underline"
-        >
-          {isEditing ? 'Save Profile' : 'Edit Profile'}
-        </button>
+        <p className="text-sm text-gray-500">Joined Hatch!</p>
       </div>
 
       {/* Goal Statement */}
       <div className="mb-6">
-        <h3 className="font-semibold text-lg mb-2">My Learning Goal</h3>
-        {isEditing ? (
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="font-semibold text-lg">My Learning Goal</h3>
+          <button onClick={() => setIsEditingGoal(!isEditingGoal)} className="text-gray-500 hover:text-gray-800">
+            <FiEdit size={20} />
+          </button>
+        </div>
+        {isEditingGoal ? (
           <textarea
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
@@ -91,14 +87,50 @@ export default function ProfileInformationCard() {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <h3 className="font-semibold text-lg">My Interests</h3>
-          <button className="text-gray-500 hover:text-gray-800">
-            <FiPlus size={20} />
+          <button onClick={() => setIsEditingInterests(!isEditingInterests)} className="text-gray-500 hover:text-gray-800">
+            <FiEdit size={20} />
           </button>
         </div>
+        {isEditingInterests && (
+          <div className="flex gap-2 mb-2">
+            <input
+              type="text"
+              value={newInterest}
+              onChange={(e) => setNewInterest(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && newInterest.trim() !== '') {
+                  setInterests([...interests, newInterest.trim()]);
+                  setNewInterest('');
+                }
+              }}
+              placeholder="Add a new interest"
+              className="w-full text-sm bg-gray-100 rounded-md p-2"
+            />
+            <button
+              onClick={() => {
+                if (newInterest.trim() !== '') {
+                  setInterests([...interests, newInterest.trim()]);
+                  setNewInterest('');
+                }
+              }}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              <FiPlus size={20} />
+            </button>
+          </div>
+        )}
         <div className="flex flex-wrap gap-2">
-          {interests.map((interest) => (
-            <span key={interest} className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-1 rounded-full">
+          {interests.map((interest, index) => (
+            <span key={interest} className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-1 rounded-full flex items-center">
               {interest}
+              {isEditingInterests && (
+                <button
+                  onClick={() => setInterests(interests.filter((_, i) => i !== index))}
+                  className="ml-2 text-blue-800 hover:text-blue-900"
+                >
+                  &times;
+                </button>
+              )}
             </span>
           ))}
         </div>

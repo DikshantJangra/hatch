@@ -10,6 +10,7 @@ import {
   FiSettings,
   FiLogOut,
   FiX,
+  FiMessageSquare,
 } from "react-icons/fi";
 import { FaFeather } from "react-icons/fa";
 import { useUser } from "@/hooks/useUser";
@@ -30,9 +31,10 @@ const ContributorNavbar = () => {
     { href: "/contributor/find-mentor", text: "Find a Mentor" },
     { href: "/contributor/sessions", text: "My Sessions" },
     { href: "/contributor/community", text: "Community" },
+    { href: "/chat/general", icon: FiMessageSquare, text: "Chat" },
   ];
 
-  const NavLink = ({ href, text }: { href: string; text: string }) => {
+  const NavLink = ({ href, text, icon: Icon }: { href: string; text: string; icon?: React.ElementType }) => {
     const isActive = pathname === href;
     return (
       <Link
@@ -41,9 +43,11 @@ const ContributorNavbar = () => {
           isActive
             ? "text-gray-900"
             : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+        } ${
+          Icon ? "flex items-center justify-center" : ""
         }`}
       >
-        {text}
+        {Icon ? <Icon size={20} /> : text}
         {isActive && (
           <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2/3 h-0.5 bg-black rounded-full"></span>
         )}
@@ -82,7 +86,7 @@ const ContributorNavbar = () => {
           {/* Center Section - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-2">
             {navLinks.map((link) => (
-              <NavLink key={link.href} href={link.href} text={link.text} />
+              <NavLink key={link.href} href={link.href} text={link.text} icon={link.icon} />
             ))}
           </div>
 
@@ -157,9 +161,12 @@ const ContributorNavbar = () => {
                 pathname === link.href
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-700 hover:bg-gray-50"
+              } ${
+                link.icon ? "flex items-center space-x-2" : ""
               }`}
             >
-              {link.text}
+              {link.icon && <link.icon size={20} />}
+              <span>{link.text}</span>
             </Link>
           ))}
         </nav>

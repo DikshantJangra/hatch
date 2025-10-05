@@ -27,6 +27,7 @@ const MentorNavbar = () => {
     { href: "/mentor", text: "Dashboard" },
     { href: "/mentor/sessions", text: "Sessions" },
     { href: "/mentor/community", text: "Community" },
+    { href: "/sessions", text: "Chat" },
   ];
 
   if (loading) {

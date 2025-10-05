@@ -19,7 +19,7 @@ export default function GithubButton({ text }: GithubButtonProps) {
   return (
     <button
       onClick={handleLogin}
-      className="w-full px-4 py-3 font-semibold text-white bg-transparent border border-gray-700 rounded-md shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:ring-offset-gray-800 flex items-center justify-center"
+      className="w-full px-4 py-3 font-semibold bg-transparent border border-gray-700 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:ring-offset-gray-800 flex items-center justify-center"
     >
       <FaGithub className="mr-2" />
       {text}

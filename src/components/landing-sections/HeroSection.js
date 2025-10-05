@@ -2,8 +2,9 @@
 'use client';
 import React from 'react';
 import { GitHubIcon, ImageTag, getImageUrl } from './UtilityIcons'; // Correct relative import path
+import GithubButton from '@/components/auth/GithubButton';
 
-export default function HeroSection({ handleLogin, loading }) {
+export default function HeroSection() {
     return (
         <div className="pt-8">
             <nav className="flex justify-between items-center mb-20">
@@ -33,10 +34,7 @@ export default function HeroSection({ handleLogin, loading }) {
                     Fast-track your open source growth with our smart, GitHub-integrated onboarding. Connect with experienced mentors in minutes.
                 </p>
                 <div className="mt-10">
-                    <button onClick={handleLogin} disabled={loading} className="inline-flex items-center justify-center bg-teal-600 text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-white transition-all duration-300 ease-in-out transform hover:scale-105">
-                        <GitHubIcon className="mr-3 h-6 w-6 text-white"/>
-                        Login with GitHub
-                    </button>
+                    <GithubButton text="Login with GitHub" />
                 </div>
             </div>
         </div>
