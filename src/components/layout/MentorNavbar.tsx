@@ -108,7 +108,7 @@ const MentorNavbar = () => {
                       Availability
                     </button>
                     <Link
-                      href="/mentor/settings"
+                      href="/settings"
                       className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       <LuSettings className="mr-3 h-4 w-4" />

@@ -5,21 +5,21 @@ import { useState } from 'react';
 const mockSessions = [
   {
     id: 1,
-    mentor: 'John Doe',
+    mentee: 'John Doe',
     date: '2025-10-26',
     time: '10:00 AM',
     status: 'Scheduled',
   },
   {
     id: 2,
-    mentor: 'Jane Smith',
+    mentee: 'Jane Smith',
     date: '2025-11-15',
     time: '2:00 PM',
     status: 'Completed',
   },
 ];
 
-const MySessionsPage = () => {
+const MentorSessionsPage = () => {
   const [sessions, setSessions] = useState(mockSessions);
 
   return (
@@ -27,14 +27,14 @@ const MySessionsPage = () => {
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-6 border-b">
           <h1 className="text-2xl font-bold text-gray-800">My Sessions</h1>
-          <p className="text-sm text-gray-600 mt-1">Here are your upcoming and past sessions.</p>
+          <p className="text-sm text-gray-600 mt-1">Here are your upcoming and past sessions with your mentees.</p>
         </div>
         <div className="p-6">
           <ul className="space-y-4">
             {sessions.map((session) => (
               <li key={session.id} className="p-4 border rounded-lg flex justify-between items-center">
                 <div>
-                  <p className="font-bold text-lg">{session.mentor}</p>
+                  <p className="font-bold text-lg">{session.mentee}</p>
                   <p className="text-sm text-gray-600">{session.date} at {session.time}</p>
                 </div>
                 <div>
@@ -53,4 +53,4 @@ const MySessionsPage = () => {
   );
 };
 
-export default MySessionsPage;
+export default MentorSessionsPage;
