@@ -8,7 +8,7 @@ export default function HeroSection({ handleLogin, loading }) {
         <div className="pt-8">
             <nav className="flex justify-between items-center mb-20">
                 <div className="text-3xl font-extrabold text-teal-600 flex items-center">
-                    <span className="text-4xl mr-2 font-black text-gray-900 drop-shadow-[0_0_5px_#f3f3f3]">H</span>
+                    <span className="text-4xl mr-1 font-black text-gray-900 drop-shadow-[0_0_5px_#f3f3f3]">H</span>
                     <span className="text-gray-900 font-bold">atch</span>
                 </div>
                 <div className="flex items-center space-x-6">
@@ -18,7 +18,9 @@ export default function HeroSection({ handleLogin, loading }) {
                     <a href="#dashboard-preview" className="text-sm text-gray-600 hover:text-gray-900 transition duration-200">Dashboard</a>
                     <a href="#chat-feature" className="text-sm text-gray-600 hover:text-gray-900 transition duration-200">Chat</a>
                 </div>
-                <ImageTag src={getImageUrl('profile')} alt="Profile" className="w-8 h-8 rounded-full ring-2 ring-teal-400/50 hover:ring-teal-400 transition duration-300" />
+                <div className="w-10 h-10 flex items-center justify-center bg-teal-600 rounded-full">
+                    <span className="text-white font-bold text-xl">H</span>
+                </div>
             </nav>
 
             <div className="flex flex-col items-center justify-center text-center py-10">

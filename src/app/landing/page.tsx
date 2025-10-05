@@ -3,6 +3,7 @@
 'use client'
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 // --- CORRECTED IMPORTS: Pointing to src/components/landing-sections/ ---
 // Assuming you moved all the component code blocks (HeroSection, Footer, etc.) 
@@ -26,23 +27,20 @@ export default function HatchLandingPage() {
     const [loading, setLoading] = useState(false);
 
     // Core Login Logic (Stays here as it handles routing)
-    const handleGitHubLogin = () => {
+    const handleGitHubLogin = async () => {
         setLoading(true);
-        // We use mock data for demo flow
-        const mockUsername = "VarunStudentSharma"; 
-        const assignedRole = mockUsername.toLowerCase().includes('mentor') ? 'mentor' : 'student';
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'github',
+            options: {
+                redirectTo: `${location.origin}/auth/callback`,
+            },
+        });
 
-        setTimeout(() => {
+        if (error) {
+            console.error('Error logging in:', error);
             setLoading(false);
-            localStorage.setItem('userRole', assignedRole);
-            localStorage.setItem('username', mockUsername);
-
-            if (assignedRole === 'mentor') {
-                router.push('/onboarding/mentor');
-            } else {
-                router.push('/onboarding/student');
-            }
-        }, 1000); 
+        }
+        // If successful, Supabase will handle the redirect.
     };
 
     return (
