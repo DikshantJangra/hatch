@@ -1,8 +1,8 @@
 // src/components/landing-sections/HeroSection.js
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import { GitHubIcon, ImageTag, getImageUrl } from './UtilityIcons'; // Correct relative import path
-import GithubButton from '@/components/auth/GithubButton';
 
 export default function HeroSection() {
     return (
@@ -34,7 +34,10 @@ export default function HeroSection() {
                     Fast-track your open source growth with our smart, GitHub-integrated onboarding. Connect with experienced mentors in minutes.
                 </p>
                 <div className="mt-10">
-                    <GithubButton text="Login with GitHub" />
+                    <Link href="/signup" className="w-full px-4 py-3 font-semibold bg-transparent border border-gray-700 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:ring-offset-gray-800 flex items-center justify-center">
+                        <GitHubIcon className="mr-2" />
+                        Login with GitHub
+                    </Link>
                 </div>
             </div>
         </div>

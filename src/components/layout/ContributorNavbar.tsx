@@ -119,7 +119,7 @@ const ContributorNavbar = () => {
               {isProfileMenuOpen && (
                 <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg py-1">
                   <Link
-                    href="/profile/me"
+                    href="/contributor/profile"
                     className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     <FiUser size={16} className="mr-3" />
