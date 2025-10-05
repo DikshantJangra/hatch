@@ -21,7 +21,7 @@ const MentorNavbar = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const pathname = usePathname();
-  const { user, loading } = useUser();
+  const { user, loading, logout } = useUser();
 
   const navLinks = [
     { href: "/mentor", text: "Dashboard" },
@@ -114,13 +114,13 @@ const MentorNavbar = () => {
                       <LuSettings className="mr-3 h-4 w-4" />
                       Settings
                     </Link>
-                    <Link
-                      href="/api/auth/signout"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      <LuLogOut className="mr-3 h-4 w-4" />
-                      Sign out
-                    </Link>
+                  <button
+                    onClick={logout}
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  >
+                    <LuLogOut className="mr-3 h-4 w-4" />
+                    Sign out
+                  </button>
                   </div>
                 )}
               </div>
@@ -203,12 +203,12 @@ const MentorNavbar = () => {
               >
                 Settings
               </Link>
-              <Link
-                href="/api/auth/signout"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+              <button
+                onClick={logout}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left"
               >
                 Sign out
-              </Link>
+              </button>
             </div>
           </div>
         </div>

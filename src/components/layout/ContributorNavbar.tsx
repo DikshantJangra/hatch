@@ -20,7 +20,7 @@ const ContributorNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { user, loading } = useUser();
+  const { user, loading, logout } = useUser();
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -133,7 +133,7 @@ const ContributorNavbar = () => {
                     Account Settings
                   </Link>
                   <div className="my-1 h-px bg-gray-100"></div>
-                  <button className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                  <button onClick={logout} className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                     <FiLogOut size={16} className="mr-3" />
                     Logout
                   </button>

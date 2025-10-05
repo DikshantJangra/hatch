@@ -28,5 +28,10 @@ export function useUser() {
     };
   }, [supabase]);
 
-  return { user, loading };
+  const logout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/';
+  };
+
+  return { user, loading, logout };
 }
