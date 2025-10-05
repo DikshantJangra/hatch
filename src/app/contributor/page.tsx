@@ -1,7 +1,15 @@
+
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 export default function ContributorPage() {
-  return (
-    <div>
-      <h1>Contributor Page</h1>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/contributor/profile');
+  }, [router]);
+
+  return null; // Or a loading spinner
 }
