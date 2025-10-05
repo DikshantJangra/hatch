@@ -16,20 +16,20 @@ const allSkills = Array.from(new Set(mockMentors.flatMap(m => m.expertise)));
 
 const FilterBar: React.FC<FilterBarProps> = ({ setSearchTerm, setSkills, setAvailableNow, setSortBy }) => {
   return (
-    <div className="p-4 bg-white rounded-lg shadow-sm mb-4">
+    <div className="p-4 bg-[#F4F7F9] rounded-lg mb-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
         <div className="relative">
           <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search by name or keyword"
-            className="w-full p-2 pl-10 border rounded-lg bg-gray-50"
+            className="w-full p-2 pl-10 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div>
           <select 
-            className="w-full p-2 border rounded-lg bg-white"
+            className="w-full p-2 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             onChange={(e) => setSkills(e.target.value ? [e.target.value] : [])}
           >
             <option value="">Filter by Skill</option>
@@ -38,18 +38,18 @@ const FilterBar: React.FC<FilterBarProps> = ({ setSearchTerm, setSkills, setAvai
             ))}
           </select>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           <input 
             type="checkbox" 
             id="availableNow" 
-            className="mr-2 h-4 w-4"
+            className="mr-2 h-4 w-4 rounded text-[#007BFF] focus:ring-blue-500"
             onChange={(e) => setAvailableNow(e.target.checked)} 
           />
-          <label htmlFor="availableNow">Available Now</label>
+          <label htmlFor="availableNow" className="text-gray-700">Available Now</label>
         </div>
         <div>
           <select 
-            className="w-full p-2 border rounded-lg bg-white border"
+            className="w-full p-2 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             onChange={(e) => setSortBy(e.target.value)}
           >
             <option>Recommended</option>
