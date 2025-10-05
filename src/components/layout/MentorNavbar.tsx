@@ -40,8 +40,8 @@ const MentorNavbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Left Section */}
           <div className="flex items-center">
-            <Link href="/mentor" className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-gray-800">Hatch</h1>
+            <Link href="/mentor" className="flex-shrink-0 flex items-center">
+              <h1 className="text-2xl font-bold text-gray-800 font-sans">Hatch</h1>
             </Link>
           </div>
 

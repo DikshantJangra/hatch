@@ -65,9 +65,9 @@ const ContributorNavbar = () => {
         <nav className="flex items-center justify-between h-full px-4 md:px-6">
           {/* Left Section & Mobile Hamburger */}
           <div className="flex items-center space-x-2">
-            <Link href="/discover" className="flex items-center space-x-2">
+            <Link href="/discover" className="flex items-center">
               <FaFeather className="w-6 h-6 text-gray-900" />
-              <span className="font-semibold text-lg text-gray-900">
+              <span className="font-bold text-xl text-gray-900 font-sans">
                 Hatch
               </span>
             </Link>
