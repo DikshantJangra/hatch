@@ -114,81 +114,81 @@ const MentorPublicProfile = () => {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
-            {/* ... existing left column content ... */}
+            {/* Profile Header & Bio */}
             <div className="bg-white p-8 rounded-lg shadow-sm">
-            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Image
-                src={mockMentor.profilePicture}
-                alt={mockMentor.name}
-                width={120}
-                height={120}
-                className="rounded-full border-4 border-[#007BFF]"
-              />
-              <div className="text-center sm:text-left">
-                <h1 className="text-3xl font-bold text-gray-800">{mockMentor.name}</h1>
-                <p className="text-gray-500 mt-1">{mockMentor.title}</p>
-                <div className="flex justify-center sm:justify-start space-x-4 mt-3">
-                  <Link href={mockMentor.social.github} passHref>
-                    <FaGithub className="text-gray-400 hover:text-gray-600" />
-                  </Link>
-                  <Link href={mockMentor.social.linkedin} passHref>
-                    <FaLinkedin className="text-gray-400 hover:text-gray-600" />
-                  </Link>
-                  <Link href={mockMentor.social.website} passHref>
-                    <FaGlobe className="text-gray-400 hover:text-gray-600" />
-                  </Link>
+              <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <Image
+                  src={mockMentor.profilePicture}
+                  alt={mockMentor.name}
+                  width={120}
+                  height={120}
+                  className="rounded-full border-4 border-[#007BFF]"
+                />
+                <div className="text-center sm:text-left">
+                  <h1 className="text-3xl font-bold text-gray-800">{mockMentor.name}</h1>
+                  <p className="text-gray-500 mt-1">{mockMentor.title}</p>
+                  <div className="flex justify-center sm:justify-start space-x-4 mt-3">
+                    <Link href={mockMentor.social.github} passHref>
+                      <FaGithub className="text-gray-400 hover:text-gray-600" />
+                    </Link>
+                    <Link href={mockMentor.social.linkedin} passHref>
+                      <FaLinkedin className="text-gray-400 hover:text-gray-600" />
+                    </Link>
+                    <Link href={mockMentor.social.website} passHref>
+                      <FaGlobe className="text-gray-400 hover:text-gray-600" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-8">
+                <h2 className="text-xl font-bold text-gray-700 mb-2">About Me</h2>
+                <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                  {mockMentor.longBio}
+                </p>
+              </div>
+            </div>
+
+            {/* Expertise & Experience */}
+            <div className="bg-white p-8 rounded-lg shadow-sm">
+              <h2 className="text-xl font-bold text-gray-700 mb-4">Areas of Expertise</h2>
+              <div className="mb-6">
+                <div className="flex flex-wrap gap-2">
+                  {mockMentor.technicalSkills.map((skill) => (
+                    <span key={skill} className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-700 mb-2">I Can Help With:</h3>
+              <ul className="list-disc list-inside text-gray-600 space-y-1">
+                {mockMentor.mentorshipFocusAreas.map((area) => (
+                  <li key={area}>{area}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Impact Stats */}
+            <div className="bg-white p-8 rounded-lg shadow-sm">
+              <h2 className="text-xl font-bold text-gray-700 mb-4">Impact</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <FaUsers className="mx-auto text-[#007BFF] mb-2" size={28} />
+                  <p className="text-2xl font-bold text-gray-800">{mockMentor.impactStats.totalMentorships}</p>
+                  <p className="text-sm text-gray-500">Total Mentorships</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <FaStar className="mx-auto text-[#007BFF] mb-2" size={28} />
+                  <p className="text-2xl font-bold text-[#007BFF]">{mockMentor.impactStats.avgRating}/5</p>
+                  <p className="text-sm text-gray-500">Avg Rating</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <FaClock className="mx-auto text-[#007BFF] mb-2" size={28} />
+                  <p className="text-lg font-semibold text-gray-800">{mockMentor.impactStats.responseTime}</p>
+                  <p className="text-sm text-gray-500">Response Time</p>
                 </div>
               </div>
             </div>
-            <div className="mt-8">
-              <h2 className="text-xl font-bold text-gray-700 mb-2">About Me</h2>
-              <p className="text-gray-600 leading-relaxed whitespace-pre-line">
-                {mockMentor.longBio}
-              </p>
-            </div>
-          </div>
-
-          {/* Expertise & Experience */}
-          <div className="bg-white p-8 rounded-lg shadow-sm">
-            <h2 className="text-xl font-bold text-gray-700 mb-4">Areas of Expertise</h2>
-            <div className="mb-6">
-              <div className="flex flex-wrap gap-2">
-                {mockMentor.technicalSkills.map((skill) => (
-                  <span key={skill} className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">I Can Help With:</h3>
-            <ul className="list-disc list-inside text-gray-600 space-y-1">
-              {mockMentor.mentorshipFocusAreas.map((area) => (
-                <li key={area}>{area}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Impact Stats */}
-          <div className="bg-white p-8 rounded-lg shadow-sm">
-            <h2 className="text-xl font-bold text-gray-700 mb-4">Impact</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <FaUsers className="mx-auto text-[#007BFF] mb-2" size={28} />
-                <p className="text-2xl font-bold text-gray-800">{mockMentor.impactStats.totalMentorships}</p>
-                <p className="text-sm text-gray-500">Total Mentorships</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <FaStar className="mx-auto text-[#007BFF] mb-2" size={28} />
-                <p className="text-2xl font-bold text-[#007BFF]">{mockMentor.impactStats.avgRating}/5</p>
-                <p className="text-sm text-gray-500">Avg Rating</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <FaClock className="mx-auto text-[#007BFF] mb-2" size={28} />
-                <p className="text-lg font-semibold text-gray-800">{mockMentor.impactStats.responseTime}</p>
-                <p className="text-sm text-gray-500">Response Time</p>
-              </div>
-            </div>
-          </div>
           </div>
 
           {/* Right Column (Sticky) */}

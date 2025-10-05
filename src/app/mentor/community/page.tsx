@@ -98,7 +98,7 @@ const MentorCommunityHub = () => {
         {/* Global Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-800">
-            {mockMentor.name} Community Hub
+            {mockMentor.name}'s Community Hub
           </h1>
           {/* Navigation Tabs */}
           <div className="mt-4 border-b border-gray-200">
