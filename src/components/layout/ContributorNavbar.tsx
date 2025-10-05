@@ -28,8 +28,8 @@ const ContributorNavbar = () => {
 
   const navLinks = [
     { href: "/contributor/find-mentor", text: "Find a Mentor" },
-    { href: "/sessions", text: "My Sessions" },
-    { href: "/community", text: "Community" },
+    { href: "/contributor/sessions", text: "My Sessions" },
+    { href: "/contributor/community", text: "Community" },
   ];
 
   const NavLink = ({ href, text }: { href: string; text: string }) => {
