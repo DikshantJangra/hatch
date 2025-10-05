@@ -33,7 +33,7 @@ const communityFeed = [
   {
     type: 'Q&A',
     title: 'Q&A: How to get started with Reinforcement Learning?',
-    summary: 'A common question I get is about breaking into RL. I've compiled a list of my favorite resources, from foundational papers to hands-on projects, to help you start your journey.',
+    summary: 'A common question I get is about breaking into RL. I\'ve compiled a list of my favorite resources, from foundational papers to hands-on projects, to help you start your journey.',
     date: 'September 28, 2025',
     tags: ['#RL', '#Beginners', '#Q&A'],
     link: '#',

@@ -175,7 +175,7 @@ export default function MySessionsPage() {
       <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">My Sessions</h1>
-          <button onClick={() => router.push('/contributor/find-mentor')} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          <button onClick={() => router.push("/contributor/find-mentor")} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
             Find a New Mentor
           </button>
         </header>

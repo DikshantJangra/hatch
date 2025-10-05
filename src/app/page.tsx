@@ -1,149 +1,100 @@
+// src/app/landing/page.tsx
+
 'use client'
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import GithubButton from '@/components/auth/GithubButton';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
-export default function Home() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const supabase = createClientComponentClient();
+// --- CORRECTED IMPORTS: Pointing to src/components/landing-sections/ ---
+// Assuming you moved all the component code blocks (HeroSection, Footer, etc.) 
+// into their own files within the same directory: src/components/landing-sections/
 
-  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
-    });
-    if (error) {
-      alert(error.message);
-    } else {
-      alert("Check your email for a confirmation link!");
-    }
-  };
+// We use relative path notation for the components: @/components/...
+import { GitHubIcon, ImageTag, getImageUrl } from '@/components/landing-sections/UtilityIcons';
+import HeroSection from '@/components/landing-sections/HeroSection';
+import RoleDiscoverySection from '@/components/landing-sections/RoleDiscoverySection';
+import HowItWorksSection from '@/components/landing-sections/HowItWorksSection';
+import DashboardPreviewSection from '@/components/landing-sections/DashboardPreviewSection';
+import ChatFeatureSection from '@/components/landing-sections/ChatFeatureSection';
+import TestimonialsSection from '@/components/landing-sections/TestimonialsSection';
+import FAQSection from '@/components/landing-sections/FAQSection';
+import Footer from '@/components/landing-sections/Footer';
 
-  return (
-    <div className="flex min-h-screen bg-[#0A0A0A] text-white" style={{ backgroundImage: `url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="#171717" fill-opacity="0.4" fill-rule="evenodd"%3E%3Cpath d="M0 40L40 0H20L0 20M40 40V20L20 40"/%3E%3C/g%3E%3C/svg%3E')` }}>
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12">
-        <div className="w-full max-w-md">
-          <div className="flex items-center mb-8">
-            <Image src="/file.svg" alt="Orion Logo" width={28} height={28} />
-            <span className="ml-3 text-2xl font-bold">Hatch</span>
-          </div>
-          <h1 className="text-4xl leading-none font-bold mb-4">We're watching the darkness so you don't have to</h1>
-          
-          <form className="space-y-4 mt-8" onSubmit={handleSignUp}>
-            <div>
-              <label htmlFor="email" className="text-sm font-medium text-gray-400">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                placeholder="Your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 mt-1 bg-[#1F1F1F] border border-gray-700 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm placeholder-gray-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="text-sm font-medium text-gray-400">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                placeholder="Your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 mt-1 bg-[#1F1F1F] border border-gray-700 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm placeholder-gray-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="confirm-password" className="text-sm font-medium text-gray-400">
-                Confirm Password
-              </label>
-              <input
-                id="confirm-password"
-                name="confirm-password"
-                type="password"
-                autoComplete="new-password"
-                required
-                placeholder="Confirm your password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 mt-1 bg-[#1F1F1F] border border-gray-700 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm placeholder-gray-500"
-              />
+
+// --- MAIN LANDING PAGE LOGIC ---
+export default function HatchLandingPage() {
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
+
+    // Core Login Logic (Stays here as it handles routing)
+    const handleGitHubLogin = async () => {
+        setLoading(true);
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'github',
+            options: {
+                redirectTo: `${location.origin}/auth/callback`,
+            },
+        });
+
+        if (error) {
+            console.error('Error logging in:', error);
+            setLoading(false);
+        }
+        // If successful, Supabase will handle the redirect.
+    };
+
+    return (
+        <div className="min-h-screen bg-white text-gray-900 font-sans flex flex-col items-center">
+            
+            <div className="w-full max-w-7xl px-6">
+                
+                {/* 1. Hero Section (Includes Navbar/Header) */}
+                <HeroSection handleLogin={handleGitHubLogin} loading={loading} />
+
+                {/* 2. Role Discovery Infographic */}
+                <section id="role-discovery" className="mt-20">
+                    <RoleDiscoverySection />
+                </section>
+                
+                {/* 3. How It Works - 3 Step Process */}
+                <section id="process" className="mt-32 pt-12 border-t border-gray-200 w-full">
+                    <HowItWorksSection />
+                </section>
+
+                {/* 4. Dashboard Preview */}
+                <section id="dashboard-preview" className="mt-32 pt-12 border-t border-gray-200 w-full">
+                    <DashboardPreviewSection onLoginClick={handleGitHubLogin}/>
+                </section>
+
+                {/* 5. Chat Feature Showcase */}
+                <section id="chat-feature" className="mt-32 pt-12 border-t border-gray-200 w-full">
+                    <ChatFeatureSection onLoginClick={handleGitHubLogin} />
+                </section>
+
+                {/* 6. Testimonials */}
+                <section id="testimonials" className="mt-32 pt-12 border-t border-gray-200 w-full">
+                    <TestimonialsSection />
+                </section>
+
+                {/* 7. FAQ */}
+                <section id="faqs" className="mt-32 pt-12 border-t border-gray-200 w-full">
+                    <FAQSection />
+                </section>
+                
+                {/* 8. Final CTA */}
+                <div className="mt-20 text-center p-10 bg-gray-50 rounded-xl border border-teal-300 transition duration-300 hover:shadow-teal-300/50 hover:border-teal-400">
+                    <h3 className="text-4xl font-bold text-gray-900 mb-6">Ready to **Hatch** your first contribution?</h3>
+                    <button
+                        onClick={handleGitHubLogin}
+                        className="px-8 py-4 text-xl font-bold rounded-full transition duration-300 bg-teal-600 text-white hover:bg-teal-700 hover:scale-105 shadow-xl shadow-teal-500/40"
+                    >
+                        Start Your Open Source Journey Today!
+                    </button>
+                </div>
             </div>
             
-            <div>
-              <button
-                type="submit"
-                className="w-full px-4 py-3 font-semibold text-gray-900 bg-[#90EE90] border border-transparent rounded-md shadow-sm hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-800"
-              >
-                Continue with email
-              </button>
-            </div>
-          </form>
-
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-              <div className="w-full border-t border-gray-700" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-[#0A0A0A] text-gray-400">Or</span>
-            </div>
-          </div>
-
-          <GithubButton text="Sign up with GitHub" />
-
-          <div className="mt-6 text-center text-sm text-gray-400">
-            By signing up, you agree to our{' '}
-            <Link href="/terms" className="font-medium text-white hover:underline">
-              Terms and Conditions
-            </Link>
-            {' and '}
-            <Link href="/privacy" className="font-medium text-white hover:underline">
-              Privacy Policy
-            </Link>
-            .
-          </div>
-
-          <div className="mt-8 border-t border-gray-700 pt-6">
-            <div className="flex justify-between items-center">
-              <p className="text-sm text-gray-400">Do you have an account already?</p>
-              <Link href="/login" className="px-6 py-2 border border-gray-600 rounded-md text-sm font-medium hover:bg-gray-800">
-                Log in
-              </Link>
-            </div>
-          </div>
-
+            {/* 9. Footer */}
+            <Footer />
         </div>
-      </div>
-      <div className="hidden md:block w-1/2 relative">
-        <Image
-          src="/hatch.png" // Assuming signup.png is the same as login.png
-          alt="Galaxy"
-          layout="fill"
-          objectFit="cover"
-        />
-         <div className="absolute inset-0 bg-black opacity-20"></div>
-      </div>
-    </div>
-  );
+    );
 }

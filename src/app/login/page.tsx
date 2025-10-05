@@ -94,7 +94,7 @@ export default function LoginPage() {
 
           <div className="mt-8 border-t border-gray-700 pt-6">
             <div className="flex justify-between items-center">
-              <p className="text-sm text-gray-400">Don't have an account?</p>
+              <p className="text-sm text-gray-400">Don&apos;t have an account?</p>
               <Link href="/signup" className="px-6 py-2 border border-gray-600 rounded-md text-sm font-medium hover:bg-gray-800">
                 Sign up
               </Link>

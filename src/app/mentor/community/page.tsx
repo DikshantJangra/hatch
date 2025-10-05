@@ -174,7 +174,7 @@ const MentorCommunityHub = () => {
             {/* Direct CTA Card */}
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h3 className="text-lg font-bold text-gray-800">Need Direct Help?</h3>
-              <p className="mt-2 text-sm text-gray-600">Can\'t find what you\'re looking for in the feed? Request a private 1-on-1 session to get personalized guidance.</p>
+              <p className="mt-2 text-sm text-gray-600">Can&apos;t find what you&apos;re looking for in the feed? Request a private 1-on-1 session to get personalized guidance.</p>
               <button 
                 onClick={handleRequestSession}
                 disabled={isCreatingMeeting}
